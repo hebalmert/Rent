@@ -8,6 +8,7 @@
   <Project Path="Rent.DomainLogic/Rent.DomainLogic.csproj" Id="af8dd0ca-066f-4d13-b562-bd95c3ca75b1" />
   <Project Path="Rent.HttpServices/Rent.HttpServices.csproj" Id="dc96bb24-8d61-4c7d-a127-d3fd2608c94e" />
   <Project Path="Rent.xContracts/Rent.xContracts.csproj" Id="3071997d-a9b6-40ff-b3b6-f68f68cb7515" />
+  <Project Path="Rent.xLenguage/Rent.xLenguage.csproj" Id="c16f32ac-16dd-4212-a2be-2465e226ee10" />
   <Project Path="Rent.xNotification/Rent.xNotification.csproj" Id="b435849d-08c2-4fbf-82f5-d9f31416267e" />
   <Project Path="Rent.xPayments/Rent.xPayments.csproj" Id="3433e093-7b00-49bc-a3d6-19ccf593e3c1" />
 </Solution>
