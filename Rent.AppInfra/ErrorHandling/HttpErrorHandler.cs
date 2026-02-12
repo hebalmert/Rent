@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Rent.DomainLogic.ModelUtility;
 using Rent.xLenguage.Resources;
 
-namespace Spin.AppInfra.ErrorHandling;
+namespace Rent.AppInfra.ErrorHandling;
 
 public class HttpErrorHandler
 {

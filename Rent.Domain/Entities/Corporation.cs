@@ -22,22 +22,18 @@ public class Corporation
 
     [MaxLength(50, ErrorMessageResourceName = nameof(ModelValidations.Validation_MaxLength), ErrorMessageResourceType = typeof(ModelValidations))]
     [Required(ErrorMessageResourceName = nameof(ModelValidations.Validation_Required), ErrorMessageResourceType = typeof(ModelValidations))]
-    [DataType(DataType.PhoneNumber)]
     [Display(Name = nameof(DisplayNames.Phone), ResourceType = typeof(DisplayNames))]
     public string? Phone { get; set; }
 
     [MaxLength(50, ErrorMessageResourceName = nameof(ModelValidations.Validation_MaxLength), ErrorMessageResourceType = typeof(ModelValidations))]
-    [DataType(DataType.PhoneNumber)]
     [Display(Name = nameof(DisplayNames.Phone2), ResourceType = typeof(DisplayNames))]
     public string? Phone2 { get; set; }
 
     [MaxLength(50, ErrorMessageResourceName = nameof(ModelValidations.Validation_MaxLength), ErrorMessageResourceType = typeof(ModelValidations))]
-    [DataType(DataType.PhoneNumber)]
     [Display(Name = nameof(DisplayNames.FaxNumber), ResourceType = typeof(DisplayNames))]
     public string? FaxNumber { get; set; }
 
     [MaxLength(50, ErrorMessageResourceName = nameof(ModelValidations.Validation_MaxLength), ErrorMessageResourceType = typeof(ModelValidations))]
-    [DataType(DataType.PhoneNumber)]
     [Display(Name = nameof(DisplayNames.FaxNumber2), ResourceType = typeof(DisplayNames))]
     public string? FaxNumber2 { get; set; }
 
@@ -49,6 +45,10 @@ public class Corporation
     [Required]
     [Display(Name = nameof(DisplayNames.Country), ResourceType = typeof(DisplayNames))]
     public int CountryId { get; set; }
+
+    [Required]
+    [Display(Name = nameof(DisplayNames.Plan), ResourceType = typeof(DisplayNames))]
+    public int SoftPlanId { get; set; }
 
     [Required(ErrorMessageResourceName = nameof(ModelValidations.Validation_Required), ErrorMessageResourceType = typeof(ModelValidations))]
     [Display(Name = nameof(DisplayNames.DateStart), ResourceType = typeof(DisplayNames))]
@@ -70,6 +70,8 @@ public class Corporation
     [NotMapped]
     public string? ImgBase64 { get; set; }
 
+    //Relaciones
+    public SoftPlan? SoftPlan { get; set; }
     public Country? Country { get; set; }
     public ICollection<Manager>? Managers { get; set; }
     public ICollection<Usuario>? Usuarios { get; set; }

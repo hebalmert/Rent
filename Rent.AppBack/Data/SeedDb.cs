@@ -3,7 +3,7 @@ using Rent.AppBack.LoadCountries;
 using Rent.AppInfra;
 using Rent.AppInfra.UserHelper;
 using Rent.Domain.Entities;
-using Rent.Domain.Enum;
+using Rent.DomainLogic.EnumTypes;
 using Rent.DomainLogic.ModelUtility;
 
 namespace Rent.AppBack.Data;
