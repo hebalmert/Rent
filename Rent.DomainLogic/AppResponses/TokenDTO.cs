@@ -1,4 +1,4 @@
-﻿namespace Rent.DomainLogic.ResponcesSec;
+﻿namespace Rent.DomainLogic.AppResponses;
 
 public class TokenDTO
 {

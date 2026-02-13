@@ -1,5 +1,4 @@
 ﻿using Rent.Domain.Entities;
-using Rent.Domain.Enum;
 using Rent.DomainLogic.EnumTypes;
 using Rent.xLenguage.Resources;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +8,7 @@ namespace Rent.Domain.EntitesSoftSec;
 public class UsuarioRole
 {
     [Key]
-    public int UsuarioRoleId { get; set; }
+    public Guid UsuarioRoleId { get; set; }
 
     [Required(ErrorMessageResourceName = nameof(ModelValidations.Validation_Required), ErrorMessageResourceType = typeof(ModelValidations))]
     [Display(Name = nameof(DisplayNames.User), ResourceType = typeof(DisplayNames))]
