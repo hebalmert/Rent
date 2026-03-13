@@ -18,6 +18,7 @@ using Rent.DomainLogic.AppResponses;
 using Rent.DomainLogic.EnumTypes;
 using Rent.DomainLogic.ModelUtility;
 using Rent.DomainLogic.Pagination;
+using Rent.xLenguage.Resources;
 
 namespace Rent.Services.ImplementEntties;
 
@@ -30,14 +31,14 @@ public class ManagerService : IManagerService
     private readonly IUserHelper _userHelper;
     private readonly IEmailHelper _emailHelper;
     private readonly HttpErrorHandler _httpErrorHandler;
-    private readonly IStringLocalizer _localizer;
+    private readonly IStringLocalizer<Errors> _localizer;
     private readonly IMapperService _mapperService;
     private readonly ImgSetting _imgOption;
 
     public ManagerService(DataContext context, IHttpContextAccessor httpContextAccessor,
         ITransactionManager transactionManager, IMemoryCache cache, IFileStorage fileStorage,
         IUserHelper userHelper, IEmailHelper emailHelper, IOptions<ImgSetting> ImgOption,
-        HttpErrorHandler httpErrorHandler, IStringLocalizer localizer, IMapperService mapperService)
+        HttpErrorHandler httpErrorHandler, IStringLocalizer<Errors> localizer, IMapperService mapperService)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;

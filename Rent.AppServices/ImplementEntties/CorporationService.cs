@@ -14,6 +14,7 @@ using Rent.Domain.Entities;
 using Rent.DomainLogic.AppResponses;
 using Rent.DomainLogic.ModelUtility;
 using Rent.DomainLogic.Pagination;
+using Rent.xLenguage.Resources;
 
 namespace Rent.Services.ImplementEntties;
 
@@ -24,12 +25,12 @@ public class CorporationService : ICorporationService
     private readonly ITransactionManager _transactionManager;
     private readonly IFileStorage _fileStorage;
     private readonly HttpErrorHandler _httpErrorHandler;
-    private readonly IStringLocalizer _localizer;
+    private readonly IStringLocalizer<Errors> _localizer;
     private readonly ImgSetting _imgOption;
 
     public CorporationService(DataContext context, IHttpContextAccessor httpContextAccessor,
         ITransactionManager transactionManager, IMemoryCache cache, IFileStorage fileStorage,
-        IOptions<ImgSetting> ImgOption, HttpErrorHandler httpErrorHandler, IStringLocalizer localizer)
+        IOptions<ImgSetting> ImgOption, HttpErrorHandler httpErrorHandler, IStringLocalizer<Errors> localizer)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;

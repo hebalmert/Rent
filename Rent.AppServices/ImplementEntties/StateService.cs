@@ -11,6 +11,7 @@ using Rent.Domain.Entities;
 using Rent.DomainLogic.AppResponses;
 using Rent.DomainLogic.ModelUtility;
 using Rent.DomainLogic.Pagination;
+using Rent.xLenguage.Resources;
 
 namespace Rent.Services.ImplementEntties;
 
@@ -20,11 +21,11 @@ public class StateService : IStateService
     private readonly HttpErrorHandler _httpErrorHandler;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ITransactionManager _transactionManager;
-    private readonly IStringLocalizer _localizer;
+    private readonly IStringLocalizer<Errors> _localizer;
 
     public StateService(DataContext context, HttpErrorHandler httpErrorHandler,
         IHttpContextAccessor httpContextAccessor, ITransactionManager transactionManager,
-        IStringLocalizer localizer)
+        IStringLocalizer<Errors> localizer)
     {
         _context = context;
         _httpErrorHandler = httpErrorHandler;

@@ -1,5 +1,4 @@
-﻿using Rent.Domain.Enum;
-using Rent.DomainLogic.EnumTypes;
+﻿using Rent.DomainLogic.EnumTypes;
 using Rent.xLenguage.Resources;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

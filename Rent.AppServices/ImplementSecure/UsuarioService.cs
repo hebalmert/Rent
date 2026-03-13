@@ -105,7 +105,7 @@ public class UsuarioService : IUsuarioService
                 return new ActionResponse<Usuario>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_IdNotFound"]
+                    Message = _localizer[nameof(Errors.Generic_IdNotFound)]
                 };
             }
 
@@ -173,7 +173,7 @@ public class UsuarioService : IUsuarioService
                         return new ActionResponse<Usuario>
                         {
                             WasSuccess = true,
-                            Message = _localizer["Generic_UserCreationFail"]
+                            Message = _localizer[nameof(Errors.Generic_UserCreationFail)]
                         };
                     }
                 }
@@ -202,7 +202,7 @@ public class UsuarioService : IUsuarioService
             return new ActionResponse<Usuario>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_AuthIdFail"]
+                Message = _localizer[nameof(Errors.Generic_AuthIdFail)]
             };
         }
         User userCheck = await _userHelper.GetUserByUserNameAsync(modelo.UserName);
@@ -211,7 +211,7 @@ public class UsuarioService : IUsuarioService
             return new ActionResponse<Usuario>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_EmailAlreadyUsed"]
+                Message = _localizer[nameof(Errors.Generic_EmailAlreadyUsed)]
             };
         }
 
@@ -240,7 +240,7 @@ public class UsuarioService : IUsuarioService
                     return new ActionResponse<Usuario>
                     {
                         WasSuccess = true,
-                        Message = _localizer["Generic_UserCreationFail"]
+                        Message = _localizer[nameof(Errors.Generic_UserCreationFail)]
                     };
                 }
             }
@@ -271,7 +271,7 @@ public class UsuarioService : IUsuarioService
                 return new ActionResponse<bool>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_IdNotFound"]
+                    Message = _localizer[nameof(Errors.Generic_IdNotFound)]
                 };
             }
 
@@ -286,7 +286,7 @@ public class UsuarioService : IUsuarioService
                     return new ActionResponse<bool>
                     {
                         WasSuccess = true,
-                        Message = _localizer["Generic_RecordDeletedNoImage"]
+                        Message = _localizer[nameof(Errors.Generic_RecordDeletedNoImage)]
                     };
                 }
             }

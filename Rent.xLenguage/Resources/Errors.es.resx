@@ -196,4 +196,7 @@
   <data name="Errors_InvalidFileExtension" xml:space="preserve">
     <value>Error de formato invalido de Archivo</value>
   </data>
+  <data name="Generic_Success" xml:space="preserve">
+    <value>Proceso Exitoso</value>
+  </data>
 </root>

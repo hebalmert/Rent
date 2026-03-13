@@ -1,3 +1,4 @@
+using Aban.AppBack.DependencyInjection;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Rent.AppBack.Data;
+using Rent.AppBack.DependencyInjection;
 using Rent.AppBack.LoadCountries;
 using Rent.AppInfra;
 using Rent.DomainLogic.AppResponses;
@@ -114,7 +116,7 @@ public partial class Program
 
         //Inyectamos el Contexto desde AppInfra y establecemos AppBack como el proyecto de migraciones y Update-Database
         builder.Services.AddDbContext<DataContext>(x =>
-            x.UseSqlServer(connectionString, option => option.MigrationsAssembly("Aban.AppBack")));
+            x.UseSqlServer(connectionString, option => option.MigrationsAssembly("Rent.AppBack")));
 
         //JWT  en donde estara nuestra llave secreta para firmar los tokens y comprobar su validez
         var jwtKey = builder.Configuration["jwtKey"];

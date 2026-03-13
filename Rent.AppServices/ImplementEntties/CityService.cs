@@ -10,6 +10,7 @@ using Rent.AppService.InterfaceEntities;
 using Rent.Domain.Entities;
 using Rent.DomainLogic.ModelUtility;
 using Rent.DomainLogic.Pagination;
+using Rent.xLenguage.Resources;
 
 namespace Rent.Services.ImplementEntties;
 
@@ -19,11 +20,11 @@ public class CityService : ICityService
     private readonly HttpErrorHandler _httpErrorHandler;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ITransactionManager _transactionManager;
-    private readonly IStringLocalizer _localizer;
+    private readonly IStringLocalizer<Errors> _localizer;
 
     public CityService(DataContext context, HttpErrorHandler httpErrorHandler,
         IHttpContextAccessor httpContextAccessor, ITransactionManager transactionManager,
-        IStringLocalizer localizer)
+        IStringLocalizer<Errors> localizer)
     {
         _context = context;
         _httpErrorHandler = httpErrorHandler;

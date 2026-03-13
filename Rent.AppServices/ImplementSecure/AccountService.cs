@@ -25,18 +25,21 @@ public class AccountService : IAccountService
     private readonly IUserHelper _userHelper;
     private readonly IEmailHelper _emailHelper;
     private readonly IStringLocalizer<Errors> _localizer;
+    private readonly IStringLocalizer<DisplayNames> _localizerDisplay;
     private readonly IFileStorage _fileStorage;
     private readonly JwtKeySetting _jwtOption;
     private readonly ImgSetting _imgOption;
 
     public AccountService(DataContext context, IUserHelper userHelper,
         IEmailHelper emailHelper, IOptions<ImgSetting> ImgOption,
-        IOptions<JwtKeySetting> jwtOption, IStringLocalizer<Errors> localizer, IFileStorage fileStorage)
+        IOptions<JwtKeySetting> jwtOption, IStringLocalizer<Errors> localizer, IStringLocalizer<DisplayNames> localizerDisplay,
+        IFileStorage fileStorage)
     {
         _context = context;
         _userHelper = userHelper;
         _emailHelper = emailHelper;
         _localizer = localizer;
+        _localizerDisplay = localizerDisplay;
         _fileStorage = fileStorage;
         _jwtOption = jwtOption.Value;
         _imgOption = ImgOption.Value;
@@ -58,7 +61,7 @@ public class AccountService : IAccountService
                 return new ActionResponse<TokenDTO>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_UserInactive"]
+                    Message = _localizer[nameof(Errors.Generic_UserInactive)]
                 };
             }
             var RolesUsuario = _context.UserRoleDetails.Where(c => c.UserId == user.Id).ToList();
@@ -67,7 +70,7 @@ public class AccountService : IAccountService
                 return new ActionResponse<TokenDTO>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_UserNoRoleAssigned"]
+                    Message = _localizer[nameof(Errors.Generic_UserNoRoleAssigned)]
                 };
             }
             var RolUsuario = RolesUsuario.FirstOrDefault(c => c.UserType == UserType.Admin);
@@ -81,7 +84,7 @@ public class AccountService : IAccountService
                     return new ActionResponse<TokenDTO>
                     {
                         WasSuccess = false,
-                        Message = _localizer["Generic_CorporationInactive"]
+                        Message = _localizer[nameof(Errors.Generic_CorporationInactive)]
                     };
                 }
                 if (current <= hoy)
@@ -89,7 +92,7 @@ public class AccountService : IAccountService
                     return new ActionResponse<TokenDTO>
                     {
                         WasSuccess = false,
-                        Message = _localizer["Generic_PlanExpired"]
+                        Message = _localizer[nameof(Errors.Generic_PlanExpired)]
                     };
                 }
 
@@ -136,7 +139,7 @@ public class AccountService : IAccountService
             return new ActionResponse<TokenDTO>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_UserBlocked"]
+                Message = _localizer[nameof(Errors.Generic_UserBlocked)]
             };
         }
 
@@ -145,14 +148,14 @@ public class AccountService : IAccountService
             return new ActionResponse<TokenDTO>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_AccessDenied"]
+                Message = _localizer[nameof(Errors.Generic_AccessDenied)]
             };
         }
 
         return new ActionResponse<TokenDTO>
         {
             WasSuccess = false,
-            Message = _localizer["Generic_InvalidCredentials"]
+            Message = _localizer[nameof(Errors.Generic_InvalidCredentials)]
         };
     }
 
@@ -241,7 +244,7 @@ public class AccountService : IAccountService
             return new ActionResponse<bool>
             {
                 WasSuccess = true,
-                Message = _localizer["Generic_Success"]
+                Message = _localizer[nameof(Errors.Generic_Success)]
             };
         }
         return new ActionResponse<bool>
@@ -259,7 +262,7 @@ public class AccountService : IAccountService
             return new ActionResponse<bool>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_UserFail"]
+                Message = _localizer[nameof(Errors.Generic_UserFail)]
             };
         }
 
@@ -276,7 +279,7 @@ public class AccountService : IAccountService
         return new ActionResponse<bool>
         {
             WasSuccess = true,
-            Message = _localizer["Generic_Success"]
+            Message = _localizer[nameof(Errors.Generic_Success)]
         };
     }
 
@@ -288,7 +291,7 @@ public class AccountService : IAccountService
             return new ActionResponse<bool>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_UserFail"]
+                Message = _localizer[nameof(Errors.Generic_UserFail)]
             };
         }
 
@@ -305,7 +308,7 @@ public class AccountService : IAccountService
         return new ActionResponse<bool>
         {
             WasSuccess = true,
-            Message = _localizer["Generic_Success"]
+            Message = _localizer[nameof(Errors.Generic_Success)]
         };
     }
 
@@ -316,7 +319,7 @@ public class AccountService : IAccountService
         // Construir la URL sin `Url.Action`
         string tokenLink = $"{frontUrl}/api/accounts/ResetPassword?token={encodedToken}";
 
-        string subject = "Recuperacion de Clave";
+        string subject = _localizer[nameof(DisplayNames.Password_Recovery)];
         string body = ($"De: NexxtPlanet" +
             $"<h1>Para Recuperar su Clave</h1>" +
             $"<p>" +
@@ -340,7 +343,7 @@ public class AccountService : IAccountService
         if (RolUsuario != null)
         {
             //TODO: Cambio de Path para Imagenes
-            NomCompa = "Optimus U";
+            NomCompa = "Nexxtplanet";
             LogoCompa = _imgOption.LogoSoftware;
             imgUsuario = _imgOption.LogoSoftware;
         }

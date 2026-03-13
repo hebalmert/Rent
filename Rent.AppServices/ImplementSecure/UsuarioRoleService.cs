@@ -24,10 +24,11 @@ public class UsuarioRoleService : IUsuarioRoleService
     private readonly IUserHelper _userHelper;
     private readonly HttpErrorHandler _httpErrorHandler;
     private readonly IStringLocalizer<Errors> _localizer;
+    private readonly IStringLocalizer<DisplayNames> _localizerDisplay;
 
     public UsuarioRoleService(DataContext context, IHttpContextAccessor httpContextAccessor,
         ITransactionManager transactionManager, IUserHelper userHelper,
-        HttpErrorHandler httpErrorHandler, IStringLocalizer<Errors> localizer)
+        HttpErrorHandler httpErrorHandler, IStringLocalizer<Errors> localizer, IStringLocalizer<DisplayNames> localizerDisplay)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;
@@ -35,6 +36,7 @@ public class UsuarioRoleService : IUsuarioRoleService
         _userHelper = userHelper;
         _httpErrorHandler = httpErrorHandler;
         _localizer = localizer;
+        _localizerDisplay = localizerDisplay;
     }
 
     public async Task<ActionResponse<IEnumerable<IntNameModel>>> ComboAsync()
@@ -49,7 +51,7 @@ public class UsuarioRoleService : IUsuarioRoleService
 
             list.Insert(0, new IntNameModel
             {
-                Name = _localizer["Select Role"],
+                Name = _localizer[nameof(DisplayNames.Select_Role)],
                 Value = 0
             });
 
@@ -69,7 +71,7 @@ public class UsuarioRoleService : IUsuarioRoleService
     {
         try
         {
-            var queryable = _context.UsuarioRoles.Where(x => x.UsuarioId == pagination.Id).AsQueryable();
+            var queryable = _context.UsuarioRoles.Where(x => x.UsuarioId == pagination.GuidId).AsQueryable();
 
             await _httpContextAccessor.HttpContext!.InsertParameterPagination(queryable, pagination.RecordsNumber);
             var modelo = await queryable.Paginate(pagination).ToListAsync();
@@ -96,7 +98,7 @@ public class UsuarioRoleService : IUsuarioRoleService
                 return new ActionResponse<UsuarioRole>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_IdNotFound"]
+                    Message = _localizer[nameof(Errors.Generic_IdNotFound)]
                 };
             }
 
@@ -120,7 +122,7 @@ public class UsuarioRoleService : IUsuarioRoleService
             return new ActionResponse<UsuarioRole>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_AuthIdFail"]
+                Message = _localizer[nameof(Errors.Generic_AuthIdFail)]
             };
         }
 
@@ -170,7 +172,7 @@ public class UsuarioRoleService : IUsuarioRoleService
                 return new ActionResponse<bool>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_IdNotFound"]
+                    Message = _localizer[nameof(Errors.Generic_IdNotFound)]
                 };
             }
             _context.UsuarioRoles.Remove(DataRemove);
@@ -189,7 +191,7 @@ public class UsuarioRoleService : IUsuarioRoleService
             return new ActionResponse<bool>
             {
                 WasSuccess = true,
-                Message = _localizer["Generic_Success"]
+                Message = _localizer[nameof(Errors.Generic_Success)]
             };
         }
         catch (Exception ex)

@@ -12,7 +12,7 @@ public class UsuarioRole
 
     [Required(ErrorMessageResourceName = nameof(ModelValidations.Validation_Required), ErrorMessageResourceType = typeof(ModelValidations))]
     [Display(Name = nameof(DisplayNames.User), ResourceType = typeof(DisplayNames))]
-    public int UsuarioId { get; set; }
+    public Guid UsuarioId { get; set; }
 
     [Display(Name = nameof(DisplayNames.RoleUser), ResourceType = typeof(DisplayNames))]
     public UserType UserType { get; set; }

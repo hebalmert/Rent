@@ -246,4 +246,16 @@
   <data name="Months" xml:space="preserve">
     <value>Meses</value>
   </data>
+  <data name="Select_Role" xml:space="preserve">
+    <value>[Seleccione Role]</value>
+  </data>
+  <data name="Password_Recovery" xml:space="preserve">
+    <value>Recuperacion de Clave</value>
+  </data>
+  <data name="Select_Plan" xml:space="preserve">
+    <value>[Seleccionar Plan]</value>
+  </data>
+  <data name="Select_Country" xml:space="preserve">
+    <value>[Seleccione Pais]</value>
+  </data>
 </root>

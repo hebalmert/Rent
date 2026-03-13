@@ -10,6 +10,8 @@ using Rent.AppService.InterfaceEntities;
 using Rent.Domain.Entities;
 using Rent.DomainLogic.ModelUtility;
 using Rent.DomainLogic.Pagination;
+using Rent.xLenguage.Resources;
+using System.Transactions;
 
 namespace Rent.Services.ImplementEntties;
 
@@ -20,16 +22,18 @@ public class SoftPlanService : ISoftPlanService
     private readonly ITransactionManager _transactionManager;
     private readonly HttpErrorHandler _httpErrorHandler;
     private readonly IStringLocalizer _localizer;
+    private readonly IStringLocalizer<DisplayNames> _localizerDisplay;
 
     public SoftPlanService(DataContext context, IHttpContextAccessor httpContextAccessor,
         ITransactionManager transactionManager, HttpErrorHandler httpErrorHandler,
-        IStringLocalizer localizer)
+        IStringLocalizer<Errors> localizer, IStringLocalizer<DisplayNames> localizerDisplay)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;
         _transactionManager = transactionManager;
         _httpErrorHandler = httpErrorHandler;
         _localizer = localizer;
+        _localizerDisplay = localizerDisplay;
     }
 
     public async Task<ActionResponse<IEnumerable<SoftPlan>>> ComboAsync()
@@ -41,7 +45,7 @@ public class SoftPlanService : ISoftPlanService
             var defaultItem = new SoftPlan
             {
                 SoftPlanId = 0,
-                Name = "[Select Plan]",
+                Name = _localizer[nameof(DisplayNames.Select_Plan)],
                 Meses = 0,
                 Price = 0,
                 ClientsCount = 0,
@@ -95,7 +99,7 @@ public class SoftPlanService : ISoftPlanService
                 return new ActionResponse<SoftPlan>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_InvalidId"]
+                    Message = _localizer[nameof(Errors.Generic_InvalidId)]
                 };
             }
             var modelo = await _context.SoftPlans
@@ -106,7 +110,7 @@ public class SoftPlanService : ISoftPlanService
                 return new ActionResponse<SoftPlan>
                 {
                     WasSuccess = false,
-                    Message = "Problemas para Enconstrar el Registro Indicado"
+                    Message = _localizer[nameof(Errors.Generic_IdNotFound)]
                 };
             }
 
@@ -129,7 +133,7 @@ public class SoftPlanService : ISoftPlanService
             return new ActionResponse<SoftPlan>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_InvalidId"]
+                Message = _localizer[nameof(Errors.Generic_InvalidId)]
             };
         }
 
@@ -145,7 +149,7 @@ public class SoftPlanService : ISoftPlanService
             {
                 WasSuccess = true,
                 Result = modelo,
-                Message = _localizer["Generic_Success"]
+                Message = _localizer[nameof(Errors.Generic_Success)]
             };
         }
         catch (Exception ex)
@@ -162,7 +166,7 @@ public class SoftPlanService : ISoftPlanService
             return new ActionResponse<SoftPlan>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_InvalidModel"] // 🧠 Clave multilenguaje para modelo nulo
+                Message = _localizer[nameof(Errors.Generic_InvalidModel)]
             };
         }
 
@@ -177,7 +181,7 @@ public class SoftPlanService : ISoftPlanService
             {
                 WasSuccess = true,
                 Result = modelo,
-                Message = _localizer["Generic_Success"]
+                Message = _localizer[nameof(Errors.Generic_Success)]
             };
         }
         catch (Exception ex)
@@ -198,7 +202,7 @@ public class SoftPlanService : ISoftPlanService
                 return new ActionResponse<bool>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_IdNotFound"]
+                    Message = _localizer[nameof(Errors.Generic_IdNotFound)]
                 };
             }
 
@@ -211,7 +215,7 @@ public class SoftPlanService : ISoftPlanService
             {
                 WasSuccess = true,
                 Result = true,
-                Message = _localizer["Generic_Success"]
+                Message = _localizer[nameof(Errors.Generic_Success)]
             };
         }
         catch (Exception ex)

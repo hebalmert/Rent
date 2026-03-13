@@ -9,6 +9,7 @@ using Rent.AppService.InterfaceEntities;
 using Rent.Domain.Entities;
 using Rent.DomainLogic.ModelUtility;
 using Rent.DomainLogic.Pagination;
+using Rent.xLenguage.Resources;
 
 namespace Rent.Services.ImplementEntties;
 
@@ -18,11 +19,11 @@ public class CountryService : ICountryService
     private readonly HttpErrorHandler _httpErrorHandler;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ITransactionManager _transactionManager;
-    private readonly IStringLocalizer _localizer;
+    private readonly IStringLocalizer<Errors> _localizer;
 
     public CountryService(DataContext context, HttpErrorHandler httpErrorHandler,
         IHttpContextAccessor httpContextAccessor, ITransactionManager transactionManager,
-        IStringLocalizer localizer)
+        IStringLocalizer<Errors> localizer)
     {
         _context = context;
         _httpErrorHandler = httpErrorHandler;
@@ -40,7 +41,7 @@ public class CountryService : ICountryService
             var defaultItem = new Country
             {
                 CountryId = 0,
-                Name = "[Select Country]"
+                Name = _localizer[nameof(DisplayNames.Select_Country)]
             };
             ListModel.Insert(0, defaultItem);
             return new ActionResponse<IEnumerable<Country>>
@@ -99,7 +100,7 @@ public class CountryService : ICountryService
                 return new ActionResponse<Country>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_InvalidId"]
+                    Message = _localizer[nameof(Errors.Generic_InvalidId)]
                 };
             }
             var modelo = await _context.Countries
@@ -110,7 +111,7 @@ public class CountryService : ICountryService
                 return new ActionResponse<Country>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_IdNotFound"]
+                    Message = _localizer[nameof(Errors.Generic_IdNotFound)]
                 };
             }
             return new ActionResponse<Country>
@@ -132,7 +133,7 @@ public class CountryService : ICountryService
             return new ActionResponse<Country>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_InvalidId"]
+                Message = _localizer[nameof(Errors.Generic_InvalidId)]
             };
         }
 
@@ -148,7 +149,7 @@ public class CountryService : ICountryService
             {
                 WasSuccess = true,
                 Result = modelo,
-                Message = _localizer["Generic_Success"]
+                Message = _localizer[nameof(Errors.Generic_Success)]
             };
         }
         catch (Exception ex)
@@ -165,7 +166,7 @@ public class CountryService : ICountryService
             return new ActionResponse<Country>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_InvalidModel"] // 🧠 Clave multilenguaje para modelo nulo
+                Message = _localizer[nameof(Errors.Generic_InvalidModel)]
             };
         }
 
@@ -180,13 +181,13 @@ public class CountryService : ICountryService
             {
                 WasSuccess = true,
                 Result = modelo,
-                Message = _localizer["Generic_Success"] // 🌐 Mensaje localizado de éxito
+                Message = _localizer[nameof(Errors.Generic_Success)]
             };
         }
         catch (Exception ex)
         {
             await _transactionManager.RollbackTransactionAsync();
-            return await _httpErrorHandler.HandleErrorAsync<Country>(ex); // ✅ Multilenguaje automático en errores
+            return await _httpErrorHandler.HandleErrorAsync<Country>(ex);
         }
     }
 
@@ -197,7 +198,7 @@ public class CountryService : ICountryService
             return new ActionResponse<bool>
             {
                 WasSuccess = false,
-                Message = _localizer["Generic_InvalidId"] // 🌐 Localizado para ID inválido
+                Message = _localizer[nameof(Errors.Generic_InvalidId)]
             };
         }
 
@@ -210,7 +211,7 @@ public class CountryService : ICountryService
                 return new ActionResponse<bool>
                 {
                     WasSuccess = false,
-                    Message = _localizer["Generic_IdNotFound"] // 🌐 Localizado para no encontrado
+                    Message = _localizer[nameof(Errors.Generic_IdNotFound)]
                 };
             }
 
@@ -223,7 +224,7 @@ public class CountryService : ICountryService
             {
                 WasSuccess = true,
                 Result = true,
-                Message = _localizer["Generic_Success"] // 🌐 Localizado para éxito
+                Message = _localizer[nameof(Errors.Generic_Success)]
             };
         }
         catch (Exception ex)
